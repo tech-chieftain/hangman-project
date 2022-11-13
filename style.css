@@ -20,3 +20,14 @@
     background-color: #ccc;
     color: #fff;
 }
+
+#word-container{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+
+.letter-dash{
+    border: 1px solid purple;
+    padding: 20px;
+}
