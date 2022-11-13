@@ -2,9 +2,12 @@
 const LETTERS_CONTAINER = document.querySelector("#letters-container");
 const WORD_CONTAINER = document.querySelector("#word-container");
 const HINT_CONTAINER = document.querySelector("#hint-container");
+const myStickman = document.getElementById("hangman-canvas");
+const context = myStickman.getContext("2d");
+
 let HINT;
 
-let counter = 10;
+let counter = 0;
 
 const letters = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -43,7 +46,8 @@ document.querySelectorAll("button[letter-button]").forEach((button) => {
         guessedLetter.innerText = button.innerText;
       });
     } else {
-      counter--;
+      drawHangman();
+      counter++;
     }
     console.log(guessedLetter);
   });
@@ -70,9 +74,9 @@ const getWord = async () => {
     const hintButton = document.getElementById("hint-button");
 
     hintButton.addEventListener("click", () => {
-      if (counter > 2) {
+      if (counter < 8) {
         HINT_CONTAINER.append(HINT);
-        counter -= 2;
+        counter += 2;
       } else {
         HINT_CONTAINER.append("You're going to die if I show you the hint 😈");
       }
@@ -97,3 +101,74 @@ const getWord = async () => {
 };
 
 getWord();
+
+const draw = function (pathFromx, pathFromy, pathTox, pathToy) {
+  context.moveTo(pathFromx, pathFromy);
+  context.lineTo(pathTox, pathToy);
+  context.stroke();
+};
+
+const head = function () {
+  context.beginPath();
+  context.arc(60, 25, 10, 0, Math.PI * 2, true);
+  context.stroke();
+};
+
+const frame1 = function () {
+  draw(0, 150, 150, 150);
+};
+
+const frame2 = function () {
+  draw(10, 0, 10, 600);
+};
+
+const frame3 = function () {
+  draw(0, 5, 70, 5);
+};
+
+const frame4 = function () {
+  draw(60, 5, 60, 15);
+};
+
+const torso = function () {
+  draw(60, 36, 60, 70);
+};
+
+const rightArm = function () {
+  draw(60, 46, 100, 50);
+};
+
+const leftArm = function () {
+  draw(60, 46, 20, 50);
+};
+
+const rightLeg = function () {
+  draw(60, 70, 100, 100);
+};
+
+const leftLeg = function () {
+  draw(60, 70, 20, 100);
+};
+
+const drawArray = [
+  rightLeg,
+  leftLeg,
+  rightArm,
+  leftArm,
+  torso,
+  head,
+  frame4,
+  frame3,
+  frame2,
+  frame1,
+];
+
+const drawHangman = () => {
+  if (counter === 10) {
+    alert("YOU KILLED THE MAN!!!");
+    return;
+  }
+  drawArray[counter]();
+  console.log(counter);
+ 
+};
