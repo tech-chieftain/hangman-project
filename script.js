@@ -15,10 +15,11 @@ const letters = "abcdefghijklmnopqrstuvwxyz".split("");
 letters.forEach((letter) => {
   createElement(
     "button",
-    [{ attributeName: "letter-button", value: letter },
-    { attributeName: "class", value: "letter-button" },
-    { attributeName: "disable", value: "false" }
-  ],
+    [
+      { attributeName: "letter-button", value: letter },
+      { attributeName: "class", value: "letter-button" },
+      { attributeName: "disable", value: "false" },
+    ],
     letter,
     LETTERS_CONTAINER
   );
@@ -34,8 +35,8 @@ function createElement(element, attributes, innerText, container) {
   container.append(letterButton);
 }
 
-document.querySelectorAll("button[letter-button]").forEach(button => {
-  button.addEventListener("click",()=>{
+document.querySelectorAll("button[letter-button]").forEach((button) => {
+  button.addEventListener("click", () => {
     button.setAttribute("disable", true);
     const guessedLetter = document.querySelectorAll(
       `span[letter="${button.innerText}"`
